@@ -4,7 +4,7 @@
 # Pyfolio
 Your one page bio built only using python.(the app is not fully updated in the repo we are trying to fix the bugs) 
 
-# To-do App (fullstack with db connected)
+# To-do App (fullstack with db connected myproject folder)
 To do app - add, delete tasks. Tasks are stored with date and time.
 ## Team members
 1. [Ashwin Sivasankaran](https://github.com/ashwinsk24)
