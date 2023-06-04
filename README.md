@@ -9,8 +9,13 @@ Your one page bio built only using python.
 ## Link to product walkthrough
 [link to video](Link Here)
 ## How it Works ?
-1. Explaining the working of project
-2. Embed video of project demo
+
+
+https://github.com/ashwinsk24/sat_hack2/assets/71746986/10e61f3e-b8b3-4c85-9246-a332fa9809e5
+
+
+
+
 ## Libraries used
 Library Name - Version
 ## How to configure
