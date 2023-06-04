@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/router"
 import { connect, E, getRefValue, isTrue, preventDefault, refs, set_val, updateState, uploadFiles } from "/utils/state"
 import "focus-visible/dist/focus-visible"
-import { Box, Button, Container, Divider, HStack, Input, Text, Textarea, useColorMode, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, Divider, HStack, Image, Input, Text, Textarea, useColorMode, VStack } from "@chakra-ui/react"
+import ReactDropzone from "react-dropzone"
 import NextHead from "next/head"
 
 
 
 export default function Component() {
-  const [state, setState] = useState({"is_hydrated": false, "items": ["potato", "carrot", "apple"], "events": [{"name": "state.hydrate"}], "files": []})
+  const [state, setState] = useState({"img": [], "is_hydrated": false, "items": ["potato", "carrot", "apple"], "events": [{"name": "state.hydrate"}], "files": []})
   const [result, setResult] = useState({"state": null, "events": [], "processing": false})
   const router = useRouter()
   const socket = useRef(null)
@@ -74,14 +75,28 @@ export default function Component() {
   <VStack>
   <Container>
   <HStack>
-  <Box sx={{"width": "70px", "height": "70px", "borderRadius": "100%", "bg": "#525252", "padding": "1em"}}/>
-  <VStack>
-  <Button sx={{"width": "400px", "height": "35px", "borderRadius": "40px", "padding": "1em", "color": "white", "bg": "#5d38a1", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
-  {`Pick an image`}
+  <VStack sx={{"padding": "5em"}}>
+  <ReactDropzone multiple={true} onDrop={e => File(e)}>
+  {({ getRootProps, getInputProps }) => (
+    <Box sx={{"border": "1px dotted red", "padding": "5em"}} {...getRootProps()}>
+    <Input type="file" {...getInputProps()}/>
+    <VStack>
+    <Button sx={{"color": "red", "bg": "white", "border": "1px solid red"}}>
+    {`Select File`}
+  </Button>
+    <Text>
+    {`Drag and drop files here or click to select files`}
+  </Text>
+  </VStack>
+  </Box>
+  )}
+</ReactDropzone>
+  <Button onClick={_e => Event([E("state.handle_upload", {}, "uploadFiles")], _e)}>
+  {`Upload`}
 </Button>
-  <Button sx={{"width": "400px", "height": "35px", "borderRadius": "40px", "padding": "1em", "color": "black", "bg": "white", "display": "flex", "alignItems": "center", "justifyContent": "center", "border": "1px solid #c2c2c2"}}>
-  {`Remove`}
-</Button>
+  {state.img.map((fgfimaia, i) => (
+  <Image key={i} src={fgfimaia}/>
+))}
 </VStack>
 </HStack>
   <Input placeholder="Profile Title" sx={{"bg": "white", "marginTop": "20px"}} type="text"/>

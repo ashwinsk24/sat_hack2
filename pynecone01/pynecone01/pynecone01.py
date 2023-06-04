@@ -1,9 +1,31 @@
 import pynecone as pc
+from typing import List
 
 
 class State(pc.State):
-    items = ["potato","carrot","apple"]
+    items = ["potato", "carrot", "apple"]
 
+    # The images to show.
+    img: list[str] = []
+
+    async def handle_upload(
+        self, files: List[pc.UploadFile]
+    ):
+        """Handle the upload of file(s).
+
+        Args:
+            files: The uploaded files.
+        """
+        for file in files:
+            upload_data = await file.read()
+            outfile = f".web/public/{file.filename}"
+
+            # Save the file.
+            with open(outfile, "wb") as file_object:
+                file_object.write(upload_data)
+
+            # Update the img var.
+            self.img.append(file.filename)
 
 
 def render_item(item):
@@ -14,55 +36,46 @@ def render_item(item):
                 "X",
                 color_scheme="red",
                 size="sm",
-
             ),
             justify_content="space-between"
         )
     )
+
+
 def index():
     return pc.container(
-        pc.text("Profile", font_size="1em",font_weight="bold"),
-        pc.divider(border_color="#c2c2c2",margin="15px 0px"),
+        pc.text("Profile", font_size="1em", font_weight="bold"),
+        pc.divider(border_color="#c2c2c2", margin="15px 0px"),
         pc.vstack(
             pc.container(
                 pc.hstack(
-                    pc.box(
-                    width="70px",
-                    height="70px",
-                    border_radius="100%",
-                    bg="#525252",
-                    padding="1em",
-                    ),
                     pc.vstack(
-                          pc.button(
-                            "Pick an image",
-                            width="400px",
-                            height="35px",
-                            border_radius="40px",
-                            padding="1em",
-                            color="white",
-                            bg="#5d38a1",
-                            display="flex",
-                            align_items="center",
-                            justify_content="center"
-                          ),
-                             pc.button(
-                            "Remove",
-                            width="400px",
-                            height="35px",
-                            border_radius="40px",
-                            padding="1em",
-                            color="black",
-                            bg="white",
-                            display="flex",
-                            align_items="center",
-                            justify_content="center",
-                            border="1px solid #c2c2c2"
-                          ),
-                          
+                        pc.upload(
+                            pc.vstack(
+                                pc.button(
+                                    "Select File",
+                                    color="red",
+                                    bg="white",
+                                    border="1px solid red",
+                                ),
+                                pc.text(
+                                    "Drag and drop files here or click to select files"
+                                ),
+                            ),
+                            border="1px dotted red",
+                            padding="5em",
+                        ),
+                        pc.button(
+                            "Upload",
+                            on_click=lambda: State.handle_upload(
+                                pc.upload_files()
+                            ),
+                        ),
+                        pc.foreach(
+                            State.img, lambda img: pc.image(src=img)
+                        ),
+                        padding="5em",
                     ),
-                    # justify_contents="space-between"
-                  
                 ),
                 pc.input(
                     placeholder="Profile Title",
@@ -77,13 +90,13 @@ def index():
             )
 
         ),
-        pc.divider(border_color="#c2c2c2",margin="15px 0px"),
-         pc.button(
-        "+ Add social icons",
-        font_size="1em",
-        font_weight="bold",
-        bg="white",
-        color="#5d38a1",
+        pc.divider(border_color="#c2c2c2", margin="15px 0px"),
+        pc.button(
+            "+ Add social icons",
+            font_size="1em",
+            font_weight="bold",
+            bg="white",
+            color="#5d38a1",
         ),
         bg="#ededed",
         padding="20px",
@@ -92,28 +105,6 @@ def index():
     )
 
 
-
 app = pc.App(state=State)
 app.add_page(index)
 app.compile()
-
-
-
-# pc.heading("TODO LIST"),
-#         pc.input(
-#             placeholder="Add a todo....",
-#             bg="white"
-#         ),
-#         pc.button(
-#             "ADD",
-#             color_scheme="green",
-#             color="white    "
-#         ),
-#         pc.divider(),
-#         pc.ordered_list(
-#             pc.foreach(State.items, lambda item:render_item(item))
-#         ),
-#         bg="#ededed",
-#         padding="1em",
-#         margin="5em",
-#         border_radius="0.5em"
