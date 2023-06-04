@@ -28,10 +28,7 @@ def add_profile_to_db(uid, profiletitle, bio, img):
 
 
 class State(pc.State):
-    profiles: List[dict] = []
-    
-    # Rest of the code...
-
+    profiles = []
 
     async def handle_upload(
         self, files: List[pc.UploadFile]
