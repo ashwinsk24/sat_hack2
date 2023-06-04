@@ -94,8 +94,8 @@ export default function Component() {
   <Button onClick={_e => Event([E("state.handle_upload", {}, "uploadFiles")], _e)}>
   {`Upload`}
 </Button>
-  {state.img.map((fgfimaia, i) => (
-  <Image key={i} src={fgfimaia}/>
+  {state.img.map((dxnbdjun, i) => (
+  <Image key={i} src={dxnbdjun}/>
 ))}
 </VStack>
 </HStack>

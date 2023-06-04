@@ -1,5 +1,30 @@
 import pynecone as pc
 from typing import List
+import uuid
+
+
+def generate_id():
+    return str(uuid.uuid4())
+
+
+class Profile(pc.Model, table=True):
+    uuid: str
+    profiletitle: str
+    bio: str
+    img: image
+
+
+def add_task_to_db(uid, date, task):
+    with pc.session() as session:
+        session.add(
+            Profile(
+                uuid=uid,
+                profiletitle=profiletitle,
+                bio=bio,
+                img=img,
+            )
+        )
+        session.commit()
 
 
 class State(pc.State):
