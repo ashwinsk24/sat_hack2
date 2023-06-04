@@ -1,11 +1,11 @@
 ![PyneCone Notion](https://github.com/TH-Activities/saturday-hack-night-template/assets/64391274/1e2cbdc1-829f-409a-8d13-03648d912472)
 
 
-# Project Name
-Long Description about project. This project do that. This project is awesome...
+# Pyfolio
+Your one page bio built only using python.
 ## Team members
-1. [Name 1](https://github.com/TH-Activities/saturday-hack-night-template)
-2. [Name 2](https://github.com/TH-Activities/saturday-hack-night-template)
+1. [Ashwin Sivasankaran](https://github.com/ashwinsk24)
+2. [Gopikrishna M A](https://github.com/Gopikrishna-M-A)
 ## Link to product walkthrough
 [link to video](Link Here)
 ## How it Works ?
