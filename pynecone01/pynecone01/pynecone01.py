@@ -11,10 +11,10 @@ class Profile(pc.Model, table=True):
     uuid: str
     profiletitle: str
     bio: str
-    img: image
+    img: List[str]
 
 
-def add_task_to_db(uid, date, task):
+def add_profile_to_db(uid, profiletitle, bio, img):
     with pc.session() as session:
         session.add(
             Profile(
@@ -28,10 +28,10 @@ def add_task_to_db(uid, date, task):
 
 
 class State(pc.State):
-    items = ["potato", "carrot", "apple"]
+    profiles: List[dict] = []
+    
+    # Rest of the code...
 
-    # The images to show.
-    img: list[str] = []
 
     async def handle_upload(
         self, files: List[pc.UploadFile]
@@ -49,84 +49,59 @@ class State(pc.State):
             with open(outfile, "wb") as file_object:
                 file_object.write(upload_data)
 
-            # Update the img var.
-            self.img.append(file.filename)
+            # Add the profile to the list.
+            self.profiles.append(
+                {
+                    "uuid": generate_id(),
+                    "profiletitle": "",
+                    "bio": "",
+                    "img": file.filename,
+                }
+            )
 
 
-def render_item(item):
-    return pc.list_item(
-        pc.hstack(
-            pc.text(item, font_size="1.5em"),
-            pc.button(
-                "X",
-                color_scheme="red",
-                size="sm",
-            ),
-            justify_content="space-between"
-        )
+def render_profile(profile):
+    return pc.container(
+        pc.image(src=profile["img"]),
+        pc.text(profile["profiletitle"], font_size="1.2em", font_weight="bold"),
+        pc.text(profile["bio"]),
+        padding="1em",
+        margin="1em",
+        border="1px solid #c2c2c2",
+        border_radius="5px",
     )
 
 
 def index():
     return pc.container(
-        pc.text("Profile", font_size="1em", font_weight="bold"),
+        pc.text("Profiles", font_size="1.5em", font_weight="bold"),
         pc.divider(border_color="#c2c2c2", margin="15px 0px"),
-        pc.vstack(
-            pc.container(
-                pc.hstack(
-                    pc.vstack(
-                        pc.upload(
-                            pc.vstack(
-                                pc.button(
-                                    "Select File",
-                                    color="red",
-                                    bg="white",
-                                    border="1px solid red",
-                                ),
-                                pc.text(
-                                    "Drag and drop files here or click to select files"
-                                ),
-                            ),
-                            border="1px dotted red",
-                            padding="5em",
-                        ),
-                        pc.button(
-                            "Upload",
-                            on_click=lambda: State.handle_upload(
-                                pc.upload_files()
-                            ),
-                        ),
-                        pc.foreach(
-                            State.img, lambda img: pc.image(src=img)
-                        ),
-                        padding="5em",
+        pc.container(
+            pc.upload(
+                pc.vstack(
+                    pc.button(
+                        "Select File",
+                        color="red",
+                        bg="white",
+                        border="1px solid red",
                     ),
+                    pc.text("Drag and drop files here or click to select files"),
                 ),
-                pc.input(
-                    placeholder="Profile Title",
-                    bg="white",
-                    margin_top="20px"
-                ),
-                pc.text_area(
-                    placeholder="Bio",
-                    bg="white",
-                    margin_top="5px"
-                )
-            )
-
+                border="1px dotted red",
+                padding="5em",
+                on_change=lambda files: State.handle_upload(files),
+            ),
+            pc.button(
+                "Upload",
+                on_click=lambda: State.handle_upload(pc.upload_files()),
+            ),
         ),
         pc.divider(border_color="#c2c2c2", margin="15px 0px"),
-        pc.button(
-            "+ Add social icons",
-            font_size="1em",
-            font_weight="bold",
-            bg="white",
-            color="#5d38a1",
-        ),
+        pc.foreach(State.profiles, lambda profile: render_profile(profile)),
         bg="#ededed",
         padding="20px",
         margin_top="50px",
-        border_radius="10px"
+        border_radius="10px",
     )
 
 
