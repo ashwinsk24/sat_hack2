@@ -92,25 +92,25 @@ export default function Component() {
   <Spacer/>
   <Container sx={{"height": "500px", "overflow": "hidden", "borderRadius": "10px", "paddingTop": "5%", "paddingBottom": "5%", "boxShadow": "7px -7px 14px #cccecf, -7px 7px 14px #ffffff"}}>
   <VStack sx={{"width": "400px", "height": "500px", "overflow": "hidden"}}>
-  {state.task_list.map((doqrufih, i) => (
-  <Container key={i} onMouseLeave={_e => Event([E("state.hide_delete", {task:doqrufih})], _e)} onMouseOver={_e => Event([E("state.show_delete", {task:doqrufih})], _e)} sx={{"width": "320px", "height": "60px", "borderBottom": "1px solid #9ca3af", "padding": "0px", "borderRadius": "0px", "display": "flex", "justifyContents": "space-between", "alignItems": "center", "overflow": "hidden"}}>
+  {state.task_list.map((kfsogqjm, i) => (
+  <Container key={i} onMouseLeave={_e => Event([E("state.hide_delete", {task:kfsogqjm})], _e)} onMouseOver={_e => Event([E("state.show_delete", {task:kfsogqjm})], _e)} sx={{"width": "320px", "height": "60px", "borderBottom": "1px solid #9ca3af", "padding": "0px", "borderRadius": "0px", "display": "flex", "justifyContents": "space-between", "alignItems": "center", "overflow": "hidden"}}>
   <HStack sx={{"width": "320px", "padding": "0px"}}>
   <Container sx={{"padding": "0px"}}>
   <VStack spacing="1px">
   <Container>
   <Text sx={{"fontSize": "8px", "fontWeight": "bold", "color": "#374151"}}>
-  {doqrufih.at(1)}
+  {kfsogqjm.at(1)}
 </Text>
 </Container>
   <Container>
   <Text sx={{"fontSize": "14px", "fontWeight": "bold"}}>
-  {doqrufih.at(2)}
+  {kfsogqjm.at(2)}
 </Text>
 </Container>
 </VStack>
 </Container>
-  <Container centerContent={true} sx={{"width": "24px", "justifyContent": "center", "transform": doqrufih.at(3), "opacity": doqrufih.at(4), "transition": "transform 0.65s,opacity 0.55s ease"}}>
-  <Button colorScheme="None" onClick={_e => Event([E("state.delete_task", {task:doqrufih})], _e)} sx={{"width": "28px", "height": "28px"}}>
+  <Container centerContent={true} sx={{"width": "24px", "justifyContent": "center", "transform": kfsogqjm.at(3), "opacity": kfsogqjm.at(4), "transition": "transform 0.65s,opacity 0.55s ease"}}>
+  <Button colorScheme="None" onClick={_e => Event([E("state.delete_task", {task:kfsogqjm})], _e)} sx={{"width": "28px", "height": "28px"}}>
   <DeleteIcon sx={{"color": "red"}}/>
 </Button>
 </Container>
