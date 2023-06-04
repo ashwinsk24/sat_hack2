@@ -19,7 +19,6 @@ def render_item(item):
             justify_content="space-between"
         )
     )
-
 def index():
     return pc.container(
         pc.text("Profile", font_size="1em",font_weight="bold"),
