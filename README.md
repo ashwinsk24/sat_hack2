@@ -1,6 +1,6 @@
 ![PyneCone Notion](https://github.com/TH-Activities/saturday-hack-night-template/assets/64391274/1e2cbdc1-829f-409a-8d13-03648d912472)
 
-# To-do App (fullstack with db connected myproject folder)
+# To-do App
 To do app - add, delete tasks. Tasks are stored with date and time.
 ## Team members
 1. [Ashwin Sivasankaran](https://github.com/ashwinsk24)
